@@ -72,26 +72,27 @@ public class OscDispatcher implements DataDispatcher {
                         projections[2] = z;
                         trySend(sensorConfiguration, projections);
                     }
+                    else if(sensorConfiguration.getSensorType()==Sensor.TYPE_ACCELEROMETER)
+                    {
+                        curAccelerations = sensorData.getValues();
+                        boolean first = true;
+                        for(int i=0;i<3;i++)
+                            if (filteredAccelerations[i]!=0)
+                            {
+                                first = false;
+                                break;
+                            }
+                        if (first)
+                            System.arraycopy(curAccelerations, 0, filteredAccelerations, 0, 3);
+                        else
+                            for(int i=0;i<3;i++)
+                                filteredAccelerations[i] = (float)(0.9*(filteredAccelerations[i]) + 0.1*(curAccelerations[i]));
+                        trySend(sensorConfiguration, filteredAccelerations);
+                    }
                     else
                         trySend(sensorConfiguration, sensorData.getValues());
                 }
-                else if(sensorConfiguration.getSensorType()==Sensor.TYPE_ACCELEROMETER)
-                {
-                    curAccelerations = sensorData.getValues();
-                    boolean first = true;
-                    for(int i=0;i<3;i++)
-                        if (filteredAccelerations[i]!=0)
-                        {
-                            first = false;
-                            break;
-                        }
-                    if (first)
-                        System.arraycopy(curAccelerations, 0, filteredAccelerations, 0, 3);
-                    else
-                        for(int i=0;i<3;i++)
-                            filteredAccelerations[i] = (float)(0.9*(filteredAccelerations[i]) + 0.1*(curAccelerations[i]));
-                    trySend(sensorConfiguration, filteredAccelerations);
-                }
+
                 else
                     {
                     trySend(sensorConfiguration, sensorData.getStringValue());
