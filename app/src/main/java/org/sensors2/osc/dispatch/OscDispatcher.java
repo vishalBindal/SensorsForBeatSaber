@@ -12,23 +12,29 @@ import org.sensors2.osc.sensors.Parameters;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by thomas on 07.11.14.
- */
+
 public class OscDispatcher implements DataDispatcher {
     private List<SensorConfiguration> sensorConfigurations = new ArrayList<SensorConfiguration>();
     private OscCommunication communication;
-    //private float[] gravity;
-    //private float[] geomagnetic;
     private float[] rotationMatrix = new float[16];
     private float[] orientations = new float[3];
     private float[] projections = new float[3];
     private float meanAzimuth = 0;
+    private float[] gravity;
+    private float[] geomagnetic;
     private SensorManager sensorManager;
+    private float[] curAccelerations = new float[3];
+    private float[] filteredAccelerations = new float[3];
+
 
     public OscDispatcher() {
         communication = new OscCommunication("OSC dispatcher thread", Thread.MIN_PRIORITY);
         communication.start();
+        for(int i=0;i<3;i++)
+        {
+            curAccelerations[i]=0;
+            filteredAccelerations[i]=0;
+        }
     }
 
     public void addSensorConfiguration(SensorConfiguration sensorConfiguration) {
@@ -69,12 +75,29 @@ public class OscDispatcher implements DataDispatcher {
                     else
                         trySend(sensorConfiguration, sensorData.getValues());
                 }
+                else if(sensorConfiguration.getSensorType()==Sensor.TYPE_ACCELEROMETER)
+                {
+                    curAccelerations = sensorData.getValues();
+                    boolean first = true;
+                    for(int i=0;i<3;i++)
+                        if (filteredAccelerations[i]!=0)
+                        {
+                            first = false;
+                            break;
+                        }
+                    if (first)
+                        System.arraycopy(curAccelerations, 0, filteredAccelerations, 0, 3);
+                    else
+                        for(int i=0;i<3;i++)
+                            filteredAccelerations[i] = (float)(0.9*(filteredAccelerations[i]) + 0.1*(curAccelerations[i]));
+                    trySend(sensorConfiguration, filteredAccelerations);
+                }
                 else
                     {
                     trySend(sensorConfiguration, sensorData.getStringValue());
                 }
             }
-            /*if (sensorConfiguration.getSensorType() == Parameters.FAKE_ORIENTATION || sensorConfiguration.getSensorType() == Parameters.INCLINATION) {
+            if (sensorConfiguration.getSensorType() == Parameters.FAKE_ORIENTATION || sensorConfiguration.getSensorType() == Parameters.INCLINATION) {
                 // Fake orientation
                 if (sensorData.getSensorType() != Sensor.TYPE_ACCELEROMETER && sensorData.getSensorType() != Sensor.TYPE_MAGNETIC_FIELD) {
                     continue;
@@ -104,7 +127,7 @@ public class OscDispatcher implements DataDispatcher {
                         }
                     }
                 }
-            }*/
+            }
         }
     }
 
