@@ -24,6 +24,7 @@ public class Parameters extends org.sensors2.common.sensors.Parameters {
         required_sensors.add(sensorManager.getDefaultSensor(Sensor.TYPE_ROTATION_VECTOR));
         required_sensors.add(sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER));
         required_sensors.add(sensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD));
+        required_sensors.add(sensorManager.getDefaultSensor(Sensor.TYPE_LINEAR_ACCELERATION));
         for (Sensor sensor : required_sensors) {
             parameters.add(new org.sensors2.osc.sensors.Parameters(sensor, applicationContext));
         }
@@ -65,6 +66,10 @@ public class Parameters extends org.sensors2.common.sensors.Parameters {
             case 11:
                 this.name = getString(R.string.sensor_rotation_vector, applicationContext);
                 this.oscPrefix = "components";
+                break;
+            case 10:
+                this.name = "Linear Acceleration";
+                this.oscPrefix = "filteredLinearAcc";
                 break;
             default:
                 this.name = sensor.getName();

@@ -57,6 +57,9 @@ public abstract class Parameters {
             case 11:
                 this.dimensions = 3;
                 break;
+            case 10:
+                this.dimensions = 3;
+                break;
             default:
                 this.dimensions = MAX_DIMENSIONS; // the maximum
                 break;

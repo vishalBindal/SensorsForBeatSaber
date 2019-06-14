@@ -72,7 +72,7 @@ public class OscDispatcher implements DataDispatcher {
                         projections[2] = z;
                         trySend(sensorConfiguration, projections);
                     }
-                    else if(sensorConfiguration.getSensorType()==Sensor.TYPE_ACCELEROMETER)
+                    else if (sensorConfiguration.getSensorType() == Sensor.TYPE_LINEAR_ACCELERATION)
                     {
                         curAccelerations = sensorData.getValues();
                         boolean first = true;
