@@ -20,15 +20,15 @@ public class Parameters extends in.devclub.common.sensors.Parameters {
     public static List<Parameters> GetSensors(SensorManager sensorManager, Context applicationContext) {
         List<Parameters> parameters = new ArrayList<>();
         List<Sensor> required_sensors = new ArrayList<>();
+        parameters.add(createFakeOrientationSensor(applicationContext));
+        required_sensors.add(sensorManager.getDefaultSensor(Sensor.TYPE_LINEAR_ACCELERATION));
         required_sensors.add(sensorManager.getDefaultSensor(Sensor.TYPE_GYROSCOPE));
         required_sensors.add(sensorManager.getDefaultSensor(Sensor.TYPE_ROTATION_VECTOR));
         required_sensors.add(sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER));
         required_sensors.add(sensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD));
-        required_sensors.add(sensorManager.getDefaultSensor(Sensor.TYPE_LINEAR_ACCELERATION));
         for (Sensor sensor : required_sensors) {
             parameters.add(new Parameters(sensor, applicationContext));
         }
-        parameters.add(createFakeOrientationSensor(applicationContext));
         parameters.add(createInclinationSensor(applicationContext));
         return parameters;
     }
@@ -70,6 +70,10 @@ public class Parameters extends in.devclub.common.sensors.Parameters {
             case 10:
                 this.name = "Linear Acceleration";
                 this.oscPrefix = "filteredLinearAcc";
+                break;
+            case 2:
+                this.name = "Magnetic field";
+                this.oscPrefix = "magfield";
                 break;
             default:
                 this.name = sensor.getName();

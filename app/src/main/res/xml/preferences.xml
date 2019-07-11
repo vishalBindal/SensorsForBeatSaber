@@ -3,12 +3,12 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
     <PreferenceCategory android:title="@string/communication">
         <in.devclub.common.preferences.ExtendedEditTextPreference
-            android:defaultValue="localhost"
+            android:defaultValue="Enter your private ip address"
             android:key="pref_comm_host"
             android:persistent="true"
             android:title="@string/host"/>
         <in.devclub.common.preferences.ExtendedEditTextPreference
-            android:defaultValue="9000"
+            android:defaultValue="6969"
             android:key="pref_comm_port"
             android:numeric="integer"
             android:persistent="true"

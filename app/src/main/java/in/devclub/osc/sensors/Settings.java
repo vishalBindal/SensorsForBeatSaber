@@ -21,7 +21,7 @@ public class Settings extends in.devclub.common.sensors.Settings {
 	}
 
 	private int setPort(SharedPreferences preferences) {
-		return Integer.valueOf(preferences.getString("pref_comm_port", "9000"));
+		return Integer.valueOf(preferences.getString("pref_comm_port", "6969"));
 	}
 
 	public String getHost() {
@@ -29,6 +29,6 @@ public class Settings extends in.devclub.common.sensors.Settings {
 	}
 
 	private String setHost(SharedPreferences preferences) {
-		return preferences.getString("pref_comm_host", "localhost");
+		return preferences.getString("pref_comm_host", "Enter your private ip address");
 	}
 }

@@ -25,6 +25,8 @@ public class StartupFragment extends Fragment {
         activeButton = (CompoundButton) v.findViewById(R.id.active);
         StartUpActivity activity = (StartUpActivity) getActivity();
         activeButton.setOnCheckedChangeListener(activity);
+        activeButton.setChecked(true);
+
         for (Parameters parameters : activity.getSensors()) {
 
             createSensorFragments((in.devclub.osc.sensors.Parameters) parameters);
