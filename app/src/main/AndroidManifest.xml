@@ -1,41 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest
-    package="org.sensors2"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="in.devclub"
     android:installLocation="auto">
 
-
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
-    <uses-permission android:name="android.permission.NFC" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
-    <uses-permission android:name="android.permission.NFC" />
-
     <uses-feature
-        android:name="android.hardware.nfc"
+        android:name="android.hardware.sensor.accelerometer"
+        android:required="false" />
+    <uses-feature
+        android:name="android.hardware.sensor.gyroscope"
         android:required="false" />
 
-    <uses-feature
-    android:name="android.hardware.sensor.accelerometer"
-    android:required="false" />
-<uses-feature
-    android:name="android.hardware.sensor.gyroscope"
-    android:required="false" />
-<uses-feature
-    android:name="android.hardware.nfc.hce"
-    android:required="false" />
+
     <application
         android:allowBackup="true"
         android:icon="@drawable/saber2"
         android:label="@string/app_name"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".osc.activities.StartUpActivity"
+            android:name="in.devclub.osc.activities.StartUpActivity"
             android:label="@string/app_name">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER"/>
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
             <intent-filter>
                 <action android:name="android.nfc.action.TAG_DISCOVERED" />
@@ -43,11 +33,11 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".osc.activities.SettingsActivity"
+            android:name="in.devclub.osc.activities.SettingsActivity"
             android:label="@string/action_settings">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".osc.activities.StartUpActivity"/>
+                android:value="in.devclub.osc.activities.StartUpActivity" />
         </activity>
     </application>
 

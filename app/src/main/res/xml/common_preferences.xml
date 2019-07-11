@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
     <PreferenceCategory android:title="@string/sensors">
-        <org.sensors2.common.preferences.ExtendedListPreference
+        <in.devclub.common.preferences.ExtendedListPreference
             android:defaultValue="1"
             android:entries="@array/sensor_rate_names"
             android:entryValues="@array/sensor_rate_values"
