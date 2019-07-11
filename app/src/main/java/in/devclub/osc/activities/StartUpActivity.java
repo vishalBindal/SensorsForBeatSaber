@@ -1,6 +1,7 @@
 package in.devclub.osc.activities;
 
 import android.annotation.SuppressLint;
+import android.app.ActionBar;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
@@ -13,6 +14,7 @@ import android.preference.PreferenceManager;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -35,7 +37,7 @@ import in.devclub.osc.sensors.Settings;
 import java.util.ArrayList;
 import java.util.List;
 
-public class StartUpActivity extends FragmentActivity implements SensorActivity,
+public class StartUpActivity extends AppCompatActivity implements SensorActivity,
         CompoundButton.OnCheckedChangeListener {
 
     private Settings settings;
@@ -56,7 +58,8 @@ public class StartUpActivity extends FragmentActivity implements SensorActivity,
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+//        ActionBar actionBar = getActionBar();
+//        actionBar.show();
         this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         this.settings = this.loadSettings();
         this.dispatcher = new OscDispatcher();

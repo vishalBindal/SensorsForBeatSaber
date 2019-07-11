@@ -6,7 +6,7 @@ android {
     defaultConfig {
         applicationId "in.devclub.osc"
         targetSdkVersion 28
-        minSdkVersion 14
+        minSdkVersion 21
         versionCode 3
         versionName "0.3.0"
     }
@@ -25,7 +25,8 @@ android {
 
 dependencies {
     implementation "com.github.hoijui.JavaOSC:javaosc-core:javaosc-0.4"
-    implementation 'org.apmem.tools:layouts:1.9@aar'
-    implementation 'com.android.support:support-v4:28.0.0'
-
+//    implementation 'org.apmem.tools:layouts:1.9@aar'
+//    implementation 'com.android.support:support-v4:28.0.0'
+    implementation 'com.android.support:appcompat-v7:28.0.0'
+    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
 }
