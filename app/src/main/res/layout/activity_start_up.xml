@@ -25,8 +25,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="8dp"
+            android:fontFamily="sans-serif-black"
             android:text="@string/send_data"
+            android:textAppearance="@style/TextAppearance.AppCompat.Title"
+            android:textSize="24sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 

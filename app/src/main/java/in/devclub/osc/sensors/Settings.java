@@ -29,6 +29,6 @@ public class Settings extends in.devclub.common.sensors.Settings {
 	}
 
 	private String setHost(SharedPreferences preferences) {
-		return preferences.getString("pref_comm_host", "Enter your private ip address");
+		return preferences.getString("pref_comm_host", "");
 	}
 }
