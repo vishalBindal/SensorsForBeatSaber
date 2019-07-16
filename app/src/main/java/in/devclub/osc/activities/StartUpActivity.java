@@ -18,10 +18,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.WindowManager;
 import android.widget.CompoundButton;
 //https://github.com/SensorApps/Common/tree/master/src/main/java/org/sensors2/common
 // The "common" package
+import in.devclub.SensorSetUp;
 import in.devclub.common.dispatch.DataDispatcher;
 import in.devclub.common.sensors.Parameters;
 import in.devclub.common.sensors.SensorActivity;
@@ -30,15 +32,16 @@ import in.devclub.common.sensors.SensorCommunication;
 import in.devclub.R;
 import in.devclub.osc.dispatch.OscConfiguration;
 import in.devclub.osc.dispatch.OscDispatcher;
-import in.devclub.osc.fragments.SensorFragment;
-import in.devclub.osc.fragments.StartupFragment;
+//import in.devclub.osc.fragments.SensorFragment;
+//import in.devclub.osc.fragments.StartupFragment;
 import in.devclub.osc.sensors.Settings;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class StartUpActivity extends AppCompatActivity implements SensorActivity,
-        CompoundButton.OnCheckedChangeListener {
+public class StartUpActivity extends AppCompatActivity implements SensorActivity
+        //,CompoundButton.OnCheckedChangeListener
+{
 
     private Settings settings;
     private SensorCommunication sensorCommunication;
@@ -46,7 +49,7 @@ public class StartUpActivity extends AppCompatActivity implements SensorActivity
     private SensorManager sensorManager;
     private PowerManager.WakeLock wakeLock;
     private boolean active;
-    private StartupFragment startupFragment;
+//    private StartupFragment startupFragment;
 
 
     public Settings getSettings() {
@@ -69,16 +72,24 @@ public class StartUpActivity extends AppCompatActivity implements SensorActivity
                 PowerManager.SCREEN_DIM_WAKE_LOCK, this.getLocalClassName());
         // Check for alternatives for this
 
-        FragmentManager fm = getSupportFragmentManager();
-        FragmentTransaction transaction = fm.beginTransaction();
-        startupFragment = (StartupFragment) fm.findFragmentByTag("sensorlist");
-        if (startupFragment == null) {
-            startupFragment = new StartupFragment();
-            transaction.add(R.id.container, startupFragment, "sensorlist");
-            transaction.commit();
+//        FragmentManager fm = getSupportFragmentManager();
+//        FragmentTransaction transaction = fm.beginTransaction();
+//        startupFragment = (StartupFragment) fm.findFragmentByTag("sensorlist");
+//        if (startupFragment == null) {
+//            startupFragment = new StartupFragment();
+//            transaction.add(R.id.container, startupFragment, "sensorlist");
+//            transaction.commit();
+//        }
+        for(Parameters parameters: this.getSensors())
+        {
+            SensorSetUp sensorSetUp=new SensorSetUp((in.devclub.osc.sensors.Parameters)parameters);
+            this.dispatcher.addSensorConfiguration(sensorSetUp.getSensorConfiguration());
         }
-
-
+//        if (!this.wakeLock.isHeld()) {
+//            this.wakeLock.acquire();
+//        }
+//        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+//        active=true;
     }
 
     public List<Parameters> GetSensors(SensorManager sensorManager) {
@@ -109,35 +120,39 @@ public class StartUpActivity extends AppCompatActivity implements SensorActivity
         return settings;
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.start_up, menu);
-        return true;
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        // Inflate the menu; this adds items to the action bar if it is present.
+//        getMenuInflater().inflate(R.menu.start_up, menu);
+//        return true;
+//    }
+//
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//        int id = item.getItemId();
+//        if(id==R.id.action_settings) {
+//                Intent intent = new Intent(this, SettingsActivity.class);
+//                startActivity(intent);
+//                return true;
+//        }
+//        return super.onOptionsItemSelected(item);
+//    }
+
+    public void open_settings(View view){
+        Intent intent = new Intent(this, SettingsActivity.class);
+        startActivity(intent);
     }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        if(id==R.id.action_settings) {
-                Intent intent = new Intent(this, SettingsActivity.class);
-                startActivity(intent);
-                return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
-
     @Override
     @SuppressLint("NewApi")
     protected void onResume() {
         super.onResume();
         this.loadSettings();
         this.sensorCommunication.onResume();
-        if (active && !this.wakeLock.isHeld()) {
+        active=true;
+        if (!this.wakeLock.isHeld()) {
             this.wakeLock.acquire();
         }
-
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
     }
 
     @Override
@@ -148,12 +163,13 @@ public class StartUpActivity extends AppCompatActivity implements SensorActivity
         if (this.wakeLock.isHeld()) {
             this.wakeLock.release();
         }
-
+        active=false;
+        getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
     }
 
-    public void addSensorFragment(SensorFragment sensorFragment) {
-        this.dispatcher.addSensorConfiguration(sensorFragment.getSensorConfiguration());
-    }
+//    public void addSensorFragment(SensorFragment sensorFragment) {
+//        this.dispatcher.addSensorConfiguration(sensorFragment.getSensorConfiguration());
+//    }
 
     @Override
     public void onSensorChanged(SensorEvent sensorEvent) {
@@ -167,19 +183,19 @@ public class StartUpActivity extends AppCompatActivity implements SensorActivity
         // We do not care about that
     }
 
-    @Override
-    public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
-        if (isChecked) {
-            if (!this.wakeLock.isHeld()) {
-                this.wakeLock.acquire();
-            }
-            getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-        } else {
-            this.wakeLock.release();
-            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-        }
-        active = isChecked;
-    }
+//    @Override
+//    public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+//        if (isChecked) {
+//            if (!this.wakeLock.isHeld()) {
+//                this.wakeLock.acquire();
+//            }
+//            getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+//        } else {
+//            this.wakeLock.release();
+//            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+//        }
+//        active = isChecked;
+//    }
 
     public List<Parameters> getSensors() {
         return sensorCommunication.getSensors();

@@ -98,18 +98,18 @@
             android:digits="1234567890."
             android:fontFamily="casual"
             android:gravity="center"
-            android:hint="192.168.43.205"
+            android:hint="IP goes here"
+            android:imeOptions="actionDone"
             android:inputType="numberDecimal"
             android:letterSpacing="0.15"
+            android:maxLines="1"
             android:paddingVertical="16dp"
             android:paddingStart="24dp"
             android:paddingEnd="24dp"
             android:textAlignment="center"
             android:textAppearance="@style/TextAppearance.AppCompat.Display1"
             android:textColor="@color/colorBlack"
-            android:textStyle="bold"
-            android:imeOptions="actionDone"
-            android:maxLines="1"/>
+            android:textStyle="bold" />
 
     </LinearLayout>
 
@@ -137,8 +137,9 @@
         android:layout_height="32dp"
         android:layout_marginTop="24dp"
         android:layout_marginEnd="24dp"
-        android:scaleType="fitStart"
         android:background="@android:color/transparent"
+        android:onClick="open_settings"
+        android:scaleType="fitStart"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/settingsicon" />
