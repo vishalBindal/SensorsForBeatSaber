@@ -8,18 +8,18 @@ import android.content.SharedPreferences;
 public abstract class Settings {
 
 
-	private final int sensorRate;
+    private final int sensorRate;
 
-	public Settings(SharedPreferences preferences) {
-		this.sensorRate = this.setSensorRate(preferences);
-	}
+    public Settings(SharedPreferences preferences) {
+        this.sensorRate = this.setSensorRate(preferences);
+    }
 
-	public int setSensorRate(SharedPreferences preferences) {
-		return Integer.valueOf(preferences.getString("pref_general_sensor_rate", "1"));
-	}
+    public int setSensorRate(SharedPreferences preferences) {
+        return Integer.valueOf(preferences.getString("pref_general_sensor_rate", "1"));
+    }
 
-	public int getSensorRate() {
-		return sensorRate;
-	}
+    public int getSensorRate() {
+        return sensorRate;
+    }
 
 }

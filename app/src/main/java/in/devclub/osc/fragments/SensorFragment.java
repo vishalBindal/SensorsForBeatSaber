@@ -34,10 +34,6 @@ public class SensorFragment extends Fragment {
 		this.sensorConfiguration.setOscParam(args.getString(Bundling.OSC_PREFIX));
 		String name = args.getString(Bundling.NAME);
 
-		//TODO: think about a better verification method
-		if (sensorConfiguration.getOscParam().equals("nfc")) {
-			this.sensorConfiguration.setSendDuplicates(true);
-		}
 		View v = inflater.inflate(R.layout.sensor, null);
 		TextView groupName = (TextView) v.findViewById(R.id.group_name);
 		groupName.setText(name);

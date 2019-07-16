@@ -58,8 +58,7 @@ public class StartUpActivity extends AppCompatActivity implements SensorActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-//        ActionBar actionBar = getActionBar();
-//        actionBar.show();
+
         this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         this.settings = this.loadSettings();
         this.dispatcher = new OscDispatcher();
@@ -188,24 +187,24 @@ public class StartUpActivity extends AppCompatActivity implements SensorActivity
 
 
 
-    @Override
-    public boolean dispatchKeyEvent(KeyEvent event) {
-        int action = event.getAction();
-        int keyCode = event.getKeyCode();
-        switch (keyCode) {
-            // setting mean value of Azimuth when either of volume keys are pressed
-            case KeyEvent.KEYCODE_VOLUME_DOWN:
-                if (action == KeyEvent.ACTION_DOWN) {
-                    this.dispatcher.set();
-                }
-                return true;
-            case KeyEvent.KEYCODE_VOLUME_UP:
-                if (action == KeyEvent.ACTION_DOWN) {
-                    this.dispatcher.set();
-                }
-                return true;
-            default:
-                return super.dispatchKeyEvent(event);
-        }
-    }
+//    @Override
+//    public boolean dispatchKeyEvent(KeyEvent event) {
+//        int action = event.getAction();
+//        int keyCode = event.getKeyCode();
+//        switch (keyCode) {
+//            // setting mean value of Azimuth when either of volume keys are pressed
+//            case KeyEvent.KEYCODE_VOLUME_DOWN:
+//                if (action == KeyEvent.ACTION_DOWN) {
+//                    this.dispatcher.set();
+//                }
+//                return true;
+//            case KeyEvent.KEYCODE_VOLUME_UP:
+//                if (action == KeyEvent.ACTION_DOWN) {
+//                    this.dispatcher.set();
+//                }
+//                return true;
+//            default:
+//                return super.dispatchKeyEvent(event);
+//        }
+//    }
 }
