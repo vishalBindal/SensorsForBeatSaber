@@ -107,7 +107,9 @@
             android:textAlignment="center"
             android:textAppearance="@style/TextAppearance.AppCompat.Display1"
             android:textColor="@color/colorBlack"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:imeOptions="actionDone"
+            android:maxLines="1"/>
 
     </LinearLayout>
 
